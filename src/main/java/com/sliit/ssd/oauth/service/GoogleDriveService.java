@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -168,5 +169,14 @@ public class GoogleDriveService {
 				.setFields("id").execute();
 		logger.info("Created File: "+verifyFile.getId());
 
+	}
+	
+	public void logout(HttpServletRequest request){
+		HttpSession session = request.getSession(false);
+		session = request.getSession(true);
+		if (session != null) {
+			session.invalidate();
+			logger.info("Logged Out...");
+		}
 	}
 }
